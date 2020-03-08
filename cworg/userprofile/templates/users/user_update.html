@@ -1,0 +1,11 @@
+{% extends "site/model_update.html" %}
+{% load i18n static material_form material_form_internal common_ui %}
+
+{% block breadcrumbs_items %}
+  <a href="/users">User</a>
+
+  {% if object %}
+     <a href="/users/{{object.pk}}">{{ object }}</a>
+  {% endif %}
+
+{% endblock %}

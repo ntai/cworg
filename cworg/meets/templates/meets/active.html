@@ -1,0 +1,11 @@
+  <a class="active">
+    {% if object.slug %}
+      {% trans 'Detail' %}
+    {% else %}
+      {% if object.pk %}
+        {% trans 'Update' %}
+      {% else %}
+        {% trans 'Add' %}
+      {% endif %}
+    {% endif %}
+  </a>

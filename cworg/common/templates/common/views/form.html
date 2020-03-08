@@ -1,0 +1,8 @@
+{% extends "site/model_update.html" %}
+{# material_form brings in 'form' tag. #}
+{% load i18n static material_form material_form_internal common_ui %}
+
+{% block breadcrumbs_items %}
+  <a href="{% url view.model|modmap_urlname:'list' %}">{{ view.model|verbose_name_plural|title }}</a>
+{% endblock %}
+

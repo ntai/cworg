@@ -1,0 +1,13 @@
+{% extends "site/model_detail.html" %}
+{% load i18n static material_form material_form_internal common_ui %}
+
+{% block breadcrumbs_items %}
+  <a href="/meets">Meets</a>
+
+  {% if meet and meet.slug %}
+     <a href="/meets/{{meet.slug}}">{{ meet }}</a>
+     <a href="/meets/{{meet.slug}}/attendees">Attendees</a>
+     <a href="/meets/{{meet.slug}}/attendees/{{object.id}}">{{object}}</a>
+  {% endif %}
+
+{% endblock %}

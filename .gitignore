@@ -1,0 +1,7 @@
+__pycache__/
+*~
+*.pyc
+py3/
+tmp/
+public/
+cworg/*/migrations/[0-9a-zA-Z]*

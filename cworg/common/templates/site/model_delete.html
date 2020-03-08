@@ -1,0 +1,44 @@
+{% extends 'site/base.html' %}
+{% load i18n static material_form material_form_internal common_ui %}
+
+{% block breadcrumbs_items %}
+<a href="{% url view.model|modmap_urlname:'list' %}">{{ view.model|verbose_name_plural|title }}</a>
+{% if object.slug %}
+  <a href="{% url view.model|modmap_urlname:'detail' object.slug %}">{{ object }}</a>
+{% else %}
+  <a href="{% url view.model|modmap_urlname:'detail' object.pk %}">{{ object }}</a>
+{% endif %}
+
+<a class="active">{% trans 'Delete' %}</a>
+{% endblock %}
+
+{% block content %}
+<div class="left-panel">
+    <div class="card">
+        <dmc-form>
+          <form method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="card-content">
+                  <div class="card-title">{% blocktrans %}Are you sure you want to delete the {{ object }} and related items?{% endblocktrans %}</div>
+                  {% for model, items in deleted_objects.items %}
+                  <h5>{{ model|verbose_name_plural|title }}</h5>
+                  {% for item in items %}
+                    {% if item.slug %}
+                      {% url item|modmap_urlname:'detail' item.slug as details_url %}
+                    {% else %}
+                      {% url item|modmap_urlname:'detail' item.pk as details_url %}
+                    {% endif %}
+                  {% if details_url %}<a href="{{ details_url }}">{{ item }}</a>{% else %}{{ item }}{% endif %}{% if not forloop.last %},&nbsp;{% endif %}
+                  {% endfor %}
+                  {% endfor %}
+              </div>
+              <div class="card-action">
+                  <div class="right-align">
+                      <button type="submit" class="waves-effect waves-light btn red white-text">{% trans "Confirm deletion" %}</button>
+                  </div>
+              </div>
+          </form>
+        </dmc-form>
+    </div>
+</div>
+{% endblock %}

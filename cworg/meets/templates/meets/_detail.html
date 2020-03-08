@@ -1,0 +1,56 @@
+{% extends 'meets/base_module.html' %}
+
+
+
+<h3>Team: <a href="/team/{{ meet.team.id }}"> {{ meet.team }} </a> </h3>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<p> Date and time: {{meet.starttime}} </p>
+<p> Duration: {{meet.duration}} </p>
+<p> Location:
+
+{% if location %}
+    <a href="/location/{{location.id}}"> {{location}} </a>
+{% else %}
+    Unspecified.
+{% endif %}
+
+</p>
+
+<p> Manager: <a href="/profile/{{meet.manager.id}}">{{meet.manager}}</a></p>
+<p> Min players: {{meet.min_attendees}} </p>
+<p> Max players: {{meet.max_attendees}} </p>
+<p> Attendees: <a href="{% url 'meet:detail' meet.id %}attendees/"> LINK </a> </p>
+
+{% if attendee_list %}
+
+<table >
+  <tr>
+    <td>Player</td> <td>Status</td> <td>Sub</td> <td>Assignment</td>
+  </tr>
+
+  {% for attendee in attendee_list %}
+  <tr>
+
+    {% if attendee.player %} 
+      <td><a href="/profile/{{attendee.player.id}}"> {{ attendee.player }}</a></td>
+    {% else %}
+      <td>Unassgined</td>
+    {% endif %}
+
+    <td>{{ attendee.attendance }}</td>
+
+    {% if attendee.substitute %} 
+      <td><a href="/profile/{{attendee.substitute.id}}"> {{ attendee.substitute }}</a></td>
+    {% else %}
+      <td></td>
+    {% endif %}
+
+    <td>{{ attendee.assignment }}</td>
+
+  </tr>
+  {% endfor %}
+</table>
+
+{% endif %}

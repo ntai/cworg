@@ -1,0 +1,66 @@
+{% extends "site/model_update.html" %}
+{# material_form brings in 'form' tag. #}
+{% load i18n static material_form material_form_internal common_ui %}
+
+{% block breadcrumbs_items %}
+  <a href="{% url view.model|modmap_urlname:'list' %}">{{ view.model|verbose_name_plural|title }}</a>
+
+  {% if object.slug %}
+    <a href="{% url view.model|modmap_urlname:'detail' object.slug %}">{{ object }}</a>
+  {% else %}
+    <a href="{% url view.model|modmap_urlname:'detail' object.pk %}">{{ object }}</a>
+  {% endif %}
+
+  <a class="active">
+    {% if object.slug %}
+      {% trans 'Detail' %}
+    {% else %}
+      {% if object.pk %}
+        {% trans 'Update' %}
+      {% else %}
+        {% trans 'Add' %}
+      {% endif %}
+    {% endif %}
+  </a>
+{% endblock %}
+
+
+	          {% block non_form_additions %}
+                  {# attendees #}
+                  <dmc-datatable config="{{ datatable_config|to_json_attr }}">
+
+                    <table id="table" class="table bordered" data-form-control="datatable" style="width:100%">
+                      <thead>
+                        <tr>
+                            {% for header, header_title in attendees_header %}
+                              <th data-name="{{ header }}" class="{{ header }}">{{ header_title|title }}</th>
+                            {% endfor %}
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        <tr style="display:none"><td></td></tr> {# fix for invalid colpan on datatable init #}
+
+                        {% for attendee in attendees %}
+                        <tr>
+                          {% for header, header_title in attendees_header %}
+                            <td>
+                              {% if header == 'object' %}
+                                <a href="/meets/{{object.slug}}/attendees/{{attendee.pk}} "> {{ attendee.player }} </a>
+			      {% endif %}
+
+			      {% if header == 'attendance' %}
+                                {{ attendee.get_attendance_display }}
+                              {% endif %}
+
+			      {% if header == 'substitute' %}
+                                <a href="/users/{{attendee.id}}"> {{ attendee.get_substitute_display }} </a>
+                              {% endif %}
+                            </td>
+                          {% endfor %}
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                    </table>
+                  </dmc-datatable>
+	          {% endblock non_form_additions %}

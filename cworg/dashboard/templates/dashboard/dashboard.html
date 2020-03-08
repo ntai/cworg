@@ -1,0 +1,119 @@
+{% extends 'site/base.html' %}
+{% load i18n static material_form material_form_internal common_ui %}
+
+{% block extrahead %}
+<link href="{% static 'Responsive-Event-Calendar-Date-Picker-jQuery-Plugin-Monthly/css/monthly.css' %}" rel="stylesheet">
+<script src="{% static 'Responsive-Event-Calendar-Date-Picker-jQuery-Plugin-Monthly/js/monthly.js' %}"></script>
+{% endblock extrahead %}
+
+{% block breadcrumbs_items %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  {% csrf_token %}
+
+  <div class="card s3">
+    <div class="monthly" id="my_calender"></div>
+  </div>
+
+  <script>
+    $('#my_calender').monthly({
+      mode: 'event',
+      dataType: 'json',
+      jsonUrl: "users/api/" + {{ user.id }} + "/calendar/{year}/{month}",
+    });
+  </script>
+  
+  <div class="card item s2">
+    <div class="card-content">
+
+      <div class="card-title">
+	{% trans "Upcoming meets" %}
+      </div>
+
+      <dmc-datatable config="{{ datatable_config|to_json_attr }}">
+	{% if meet_data %}
+
+	<table id="table" class="table bordered" data-form-control="datatable" style="width:100%">
+	  <thead>
+            <tr>
+              {% for fieldname, dataname, clsname, title in meet_headers %}
+              <th data-name="{{ dataname }}" class="{{ clsname }}">{{ title|title }}</th>
+              {% endfor %}
+            </tr>
+	  </thead>
+	  <tbody>
+            <tr style="display:none"><td></td></tr>
+            {% for mrow in meet_data %}
+            <tr>
+	      {% for item, hlnk in mrow %}
+              <td>
+		{% if hlnk %}
+  		<a href="{{ hlnk }}">{{item}}</a>
+		{% else %}
+		{{item}}
+		{% endif %}
+              </td>
+	      {% endfor %}
+            </tr>
+            {% endfor %}
+	  </tbody>
+	</table>
+
+	{% else %}
+	<h3>No upcoming meets</h3>
+	{% endif %}
+      </dmc-datatable>
+    </div>
+  </div>
+
+  <div class="item s4">
+    <div class="card s4">
+      <div class="card-content">
+	<div class="card-title">
+          {% trans "My Teams" %}
+	</div>
+
+	<dmc-datatable config="{{ datatable_config|to_json_attr }}">
+	  {% if teams %}
+	  <table id="table" class="table bordered" data-form-control="datatable" style="width:100%">
+	    <thead>
+              <tr>
+		{% for fieldname, dataname, clsname, title in team_headers %}
+		<th data-name="{{ dataname }}" class="{{ clsname }}">{{ title|title }}</th>
+		{% endfor %}
+              </tr>
+	    </thead>
+	    <tbody>
+              <tr style="display:none"><td></td></tr>
+              {% for trow in teams %}
+              <tr>
+		{% for item, hlnk in trow %}
+		<td>
+		  {% if hlnk %}
+  		  <a href="{{ hlnk }}">{{item}}</a>
+		  {% else %}
+		  {{item}}
+		  {% endif %}
+		</td>
+		{% endfor %}
+              </tr>
+              {% endfor %}
+	    </tbody>
+	  </table>
+
+	  {% else %}
+	  <h3>No teams</h3>
+	  {% endif %}
+	</dmc-datatable>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+

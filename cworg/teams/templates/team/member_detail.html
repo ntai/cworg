@@ -1,0 +1,14 @@
+{% extends "site/model_detail.html" %}
+{# material_form brings in 'form' tag. #}
+{% load i18n static material_form material_form_internal common_ui %}
+
+{% block breadcrumbs_items %}
+  <a href="/teams">Teams</a>
+
+  {% if team and team.slug %}
+     <a href="/teams/{{team.slug}}">{{ team }}</a>
+     <a href="/teams/{{team.slug}}/members">Members</a>
+     <a href="/teams/{{team.slug}}/members/{{object.id}}">{{object}}</a>
+  {% endif %}
+
+{% endblock %}

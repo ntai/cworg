@@ -1,0 +1,12 @@
+{% extends "site/model_list.html" %}
+{% load i18n %}
+
+{% block action_btn %}
+<div class="fixed-action-btn">
+  {% if create_url %}
+  <label>New Location</label>
+  <a class="btn-floating btn-large waves-effect waves-light red z-depth-2" href="{{ create_url }}"><i class="large material-icons">add</i></a>
+  {% endif %}
+</div>
+{% endblock %}
+g

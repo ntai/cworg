@@ -1,0 +1,10 @@
+{% extends "site/model_list.html" %}
+
+{% block breadcrumbs_items %}
+  <a href="/teams">Teams</a>
+  {% if team and team.slug %}
+     <a href="/teams/{{team.slug}}">{{ team }}</a>
+     <a href="/teams/{{team.slug}}/members">Members</a>
+  {% endif %}
+{% endblock %}
+

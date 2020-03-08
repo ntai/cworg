@@ -1,0 +1,13 @@
+
+td, th {
+  padding: 8px 5px;
+}
+
+nav {
+  background-color: #01579b;
+}
+
+.sidenav.sidenav-fixed .collapsible-body > ul:not(.collapsible) > li.active {
+  background-color: #01579b;
+}
+

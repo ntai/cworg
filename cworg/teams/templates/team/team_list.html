@@ -1,0 +1,22 @@
+{% extends "site/model_list.html" %}
+{% load i18n %}
+
+{% block action_btn %}
+    <div class="fixed-action-btn">
+
+    {% if create_url %}
+      <label>New Team</label>
+      <a class="btn-floating btn-large waves-effect waves-light red z-depth-2" href="{{ create_url }}"><i class="large material-icons">add</i></a>
+    {% endif %}
+
+        <div class="item">
+    {% if join_url %}
+      <a class="waves-effect waves-light btn white-text" href="{{join_url}}" > {% trans "Join a team" %}</a>
+    {% else %}
+      <a class="waves-effect waves-light btn white-text" enable="false" > {% trans "Join a team" %}</a>
+    {% endif %}
+</div>
+
+    </div>
+
+    {% endblock %}

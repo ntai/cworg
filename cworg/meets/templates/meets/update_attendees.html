@@ -1,0 +1,38 @@
+{% extends "site/base.html" %}
+{% load i18n static material_form material_form_internal common_ui %}
+
+{% block breadcrumbs_items %}
+<a href="/meets">Meets</a>
+
+{% if meet and meet.slug %}
+<a href="/meets/{{meet.slug}}">{{ meet }}</a>
+<a href="/meets/{{meet.slug}}/attendees">Attendees</a>
+{% endif %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <dmc-form>
+    <form method="POST" enctype="multipart/form-data">
+
+      {% csrf_token %}
+      {{ attendee_formset.management_form }}
+      {% for form in attendee_formset %}
+      <div class="card">
+        <div class="card-content">
+          {% form layout=form.layout %}{% endform %}
+	</div>
+      </div>
+      {% endfor %}
+
+      <div class="item">
+	<button type="submit" class="waves-effect waves-light btn white-text">{% trans 'Save' %}</button>
+      </div>
+    </form>
+  </dmc-form>
+</div>
+
+{% endblock content %}
+     

@@ -1,0 +1,33 @@
+{% extends "site/model_create.html" %}
+{% load common_ui i18n %}
+
+{% block scripts %}
+<script type="text/javascript">
+function sane_max(value)
+{
+    const minVal = document.getElementById("id_min_attendees").value;
+    /* This app is not meant to handle large attendees */
+    if (value > 100) value = 100;
+    if (minVal) {
+        const intMinVal = parseInt(minVal);
+        if (value < intMinVal)
+            return intMinVal;
+    }
+    return value;
+}
+</script>
+{% endblock scripts %}
+
+{% block form %}
+
+{% form layout=form.layout %}
+
+  {% part form.duration label %}
+      <label class="active" for="id_duration">{% trans "Duration (minutes)" %}</label>
+  {% endpart %}
+
+
+{% endform %}
+
+
+{% endblock form %}

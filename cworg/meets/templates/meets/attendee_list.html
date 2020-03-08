@@ -1,0 +1,9 @@
+{% extends "site/model_list.html" %}
+
+{% block breadcrumbs_items %}
+  <a href="/meets">Meets</a>
+  {% if meet and meet.slug %}
+     <a href="/meets/{{meet.slug}}">{{ meet }}</a>
+     <a href="/meets/{{meet.slug}}/attendees">Attendees</a>
+  {% endif %}
+{% endblock %}

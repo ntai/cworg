@@ -1,0 +1,45 @@
+{% extends "site/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+{% block header %}
+{% endblock header %}
+
+{% block topbar %}
+<nav class="topbar">
+  <div>
+    <ul >
+      {% if not request.user.is_authenticated %}
+      <li><a href='{% url "login" %}'>Login</a></li>
+      <li><a href='{% url "register" %}'>Register</a></li>
+
+      <li><a href='{% url "password_reset" %}'>Reset Password</a></li>
+      {% else %}
+      <li><a href='{% url "logout" %}'>Logout</a></li>
+      {% endif %}
+    </ul>
+</nav>
+{% endblock topbar %}
+
+{% block breadcrumbs %}{% endblock breadcrumbs %}
+
+{% block main_content %}
+{# #}
+{# You may want put stuff in here if you don't want to use card. #}
+
+<div class="container">
+  <div class="card">
+    <div class="card-content">
+      {% block card_content %}
+      {# your account things come here #}
+      {% endblock card_content %}
+    </div>
+  </div>
+</div>
+
+{# #}
+{# #}
+{% endblock main_content %}
+
+{% endblock body %}
