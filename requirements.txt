@@ -8,7 +8,7 @@ wheel==0.33.6
 django-swingtime==1.1.0
 django-mysql==3.3.0
 django-scheduler==0.9.3
-djangorestframework==3.10.03
+djangorestframework==3.11.2
 django-crispy-forms==1.8.1
 PyJWT==1.7.1
 django-markdown-deux==1.0.5
