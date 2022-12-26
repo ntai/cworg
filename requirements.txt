@@ -4,7 +4,7 @@ mysqlclient==1.4.6
 Pillow==7.0.0  
 pytz==2019.3 
 sqlparse==0.3.0  
-wheel==0.33.6 
+wheel==0.38.1 
 django-swingtime==1.1.0
 django-mysql==3.3.0
 django-scheduler==0.9.3
